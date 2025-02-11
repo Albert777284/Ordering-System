@@ -5,63 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>點餐系統 - 分類頁面</title>
   <style>
+    /* 頁面 */
     body {
       font-family: Arial, sans-serif;
       background-color: #f7f7f7;
       margin: 0;
       padding: 0;
       display: flex;
-      flex-direction: column; /* 垂直排列 */
-      align-items: center; /* 水平置中 */
-      justify-content: center; /* 垂直置中 */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
     }
+    /* 標題 */
     .welcome-message {
-      font-size: 50px; /* 標題字體大小 */
-      font-weight: bold; /* 加粗字體 */
+      font-size: 50px;
+      font-weight: bold;
       text-align: center;
-      color: #333; /* 字體顏色 */
-      position: absolute; /* 讓訊息固定在最上方 */
-      top: 20px; /* 距離頁面頂部 20px */
-      left: 50%; /* 水平置中 */
-      transform: translateX(-50%); /* 讓標題真正置中 */
+      color: #333;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 20px; 
     }
+
+    /* 商品類別div排版 */
     .category-container {
-      display: grid; /* 使用 grid 排列 */
-      grid-template-columns: repeat(4, 1fr); /* 每行顯示 4 個分類 */
-      column-gap: 20px; /* 水平方向間距 */
-      row-gap: 40px; /* 垂直方向間距，讓每排間隔適中 */
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 20px;
+      row-gap: 40px;
       padding: 20px;
       padding: 100px 20px 20px;
-      width: 90%; /* 容器寬度 */
-      max-width: 1200px; /* 最大寬度 */
+      width: 90%;
+      max-width: 1200px;
     }
+
+    /* 商品類別div樣式 */
     .category {
       background: #fff;
-      border-radius: 16px; /* 增加圓角 */
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 更明顯的陰影 */
-      padding: 30px; /* 增加內邊距 */
-      width: 200px; /* 調大分類框的寬度 */
-      height: 250px; /* 調大分類框的高度 */
+      border-radius: 16px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      padding: 30px;
+      width: 200px;
+      height: 250px;
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s, background-color 0.2s;
     }
+
+    /* 鼠標移至商品類別div */
     .category:hover {
       transform: scale(1.1);
-      background-color: #f0f8ff; /* 淡藍色背景 */
+      background-color: #f0f8ff;
     }
+
+    /* 商品類別div圖片 */
     .category img {
-      width: 170px; /* 統一分類圖示寬度 */
-      height: 170px; /* 統一分類圖示高度 */
-      object-fit: cover; /* 保持圖示內容比例 */
-      border-radius: 10px; /* 讓分類圖示具有圓角 */
-      margin-bottom: 10px; /* 圖示與標題的距離 */
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
+
+    /* 商品名稱樣式 */
     .category h2 {
       margin: 10px 0;
       font-size: 25px;
     }
+
+    /* 頁面上顯示的購物車按鈕 */
+    .cart-button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+      margin-right: 20px;
+    }
+
+    /*設定彈出訊息視窗樣式 */
     .modal {
       display: none;
       position: fixed;
@@ -78,13 +110,18 @@
       max-width: 90%;
     }
     
+    /* 購物車內容標題 */
     .modal h2 {
       margin-bottom: 20px;
     }
+
+    /* 確認加入購物車視窗按鈕位置 */
     .modal-buttons {
       display: flex;
       justify-content: space-between;
     }
+
+    /* 購物車視窗按鈕樣式 */
     .modal button {
       padding: 10px 20px;
       border: none;
@@ -92,14 +129,9 @@
       border-radius: 5px;
       font-size: 16px;
     }
-    .modal .confirm {
-      background-color: #28a745;
-      color: white;
-    }
-    .modal .cancel {
-      background-color: #dc3545;
-      color: white;
-    }
+
+
+    /* 開啟視窗時將背景改成半透明 */
     .overlay {
       display: none;
       position: fixed;
@@ -110,25 +142,9 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 999;
     }
-    .cart-button {
-      margin-top: 40px;
-      padding: 12px 24px;
-      font-size: 18px;
-      background-color: #ff6600;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.3s;
-      margin-right: 20px;
-    }
+
     
-    .cart-button:hover {
-      background-color: #cc5200;
-    }
+    /* 購物車視窗 */
     #cart-modal {
       display: none;
       position: fixed;
@@ -145,11 +161,13 @@
       max-width: 90%;
     }
     
+    /* 加入購物車裡的商品內容文字排版 */
     #cart-items-list {
       text-align: left;
       margin-bottom: 15px;
     }
     
+    /* 關閉購物車按鈕樣式 */
     .close-cart {
       padding: 10px 20px;
       background-color: red;
@@ -159,10 +177,12 @@
       cursor: pointer;
       font-size: 16px;
     }
-    
+    /* 鼠標移至關閉購物車按鈕 */
     .close-cart:hover {
       background-color: darkred;
     }
+
+    /* 送出清單按鈕樣式 */
     .submit-order {
       padding: 10px 20px;
       background-color: #28a745;
@@ -174,9 +194,12 @@
       margin-top: 10px;
     }
     
+    /* 鼠標移至送出清單按鈕 */
     .submit-order:hover {
       background-color: #218838;
     }
+
+    /* 輸入email視窗 */
     #email-modal {
       display: none;
       position: fixed;
@@ -193,6 +216,7 @@
       max-width: 90%;
     }
     
+    /* 使用者輸入email樣式 */
     #user-email {
       width: 90%;
       padding: 10px;
@@ -201,42 +225,15 @@
       border-radius: 5px;
       font-size: 16px;
     }
+  
     
-    .modal-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-    }
-    
-    .modal-buttons button {
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    
-    .modal-buttons .confirm {
-      background-color: #28a745;
-      color: white;
-    }
-    
-    .modal-buttons .cancel {
-      background-color: #dc3545;
-      color: white;
-    }
-    
-    .modal-buttons .confirm:hover {
-      background-color: #218838;
-    }
-    
-    .modal-buttons .cancel:hover {
-      background-color: #c82333;
-    }
+    /* 清除訂單按鈕樣式 */
     .clear-cart {
       background-color: #c82333;
       color: white;
     }
+
+    /* 鼠標移至清除訂單按鈕 */
     .clear-cart:hover{
       background-color: #c8237e;
       color: white;
