@@ -155,6 +155,7 @@ function clearCart() {
 function openEmailPrompt() {
     document.getElementById("email-modal").style.display = "block";
     document.getElementById("email-overlay").style.display = "block";
+    closeCart()
 }
 
 // 關閉 Email 視窗
