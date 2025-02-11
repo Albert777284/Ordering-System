@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>漢堡菜單</title>
   <style>
+    /* 頁面 */
     body {
       font-family: Arial, sans-serif;
       background-color: #f7f7f7;
@@ -15,6 +16,8 @@
       align-items: center;
       overflow-x: hidden; /* 隱藏水平滾動條 */
     }
+    
+    /* 標題 */
     .header {
       background-color: #ffcc00;
       width: 100%;
@@ -24,6 +27,8 @@
       font-size: 28px;
       font-weight: bold;
     }
+
+    /* 分類div版面 */
     .menu-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr); /* 每行顯示3個div */
@@ -32,6 +37,8 @@
       width: 90%;
       max-width: 1200px;
     }
+
+    /* 分類div樣式 */
     .menu-item {
       background: #fff;
       border-radius: 16px;
@@ -41,10 +48,14 @@
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
+
+    /* 鼠標移至分類div上 */
     .menu-item:hover {
       transform: scale(1.05);
       box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
     }
+
+    /* 分類div圖片 */
     .menu-item img {
       width: 160px; /* 圖片寬度 */
       height: 160px; /* 圖片高度 */
@@ -52,20 +63,28 @@
       border-radius: 12px;
       margin-bottom: 15px;
     }
+
+    /* 商品名稱樣式 */
     .menu-item h3 {
       font-size: 20px;
       margin: 10px 0;
     }
+
+    /* 商品其他文字 */
     .menu-item p {
       font-size: 14px;
       color: #666;
       margin-bottom: 15px;
     }
+
+    /* 商品價格 */
     .menu-item .price {
       font-size: 30px;
       font-weight: bold;
       color: #ff6600;
     }
+
+    /* 返回按鈕樣式 */
     .back-button {
       margin-top: 40px;
       padding: 12px 24px;
@@ -80,15 +99,18 @@
       display: inline-block;
       transition: background 0.3s;
     }
-    .back-button:hover {
+
+    /* 鼠標移至返回按鈕上 */
+    /*.back-button:hover {
       background-color: #0056b3;
-    }
-    /* 讓按鈕置中 */
+    }*/
+
+    /* 按鈕位置 */
     .button-container {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-bottom: 40px;
+      margin-bottom: 100px;
     }
     /*設定彈出訊息視窗樣式 */
     .modal {
