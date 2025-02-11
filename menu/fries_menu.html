@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>點心菜單</title>
   <style>
+    /* 頁面 */
     body {
       font-family: Arial, sans-serif;
       background-color: #f7f7f7;
@@ -13,8 +14,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow-x: hidden; /* 隱藏水平滾動條 */
+      overflow-x: hidden;
+      overflow: hidden;
     }
+    
+    /* 標題 */
     .header {
       background-color: #ffcc00;
       width: 100%;
@@ -24,6 +28,8 @@
       font-size: 28px;
       font-weight: bold;
     }
+
+    /* 分類div版面 */
     .menu-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr); /* 每行顯示3個div */
@@ -32,19 +38,20 @@
       width: 90%;
       max-width: 1200px;
     }
+
+    /* 分類div樣式 */
     .menu-item {
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      height: 315px;
       padding: 20px;
       text-align: center;
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
-    .menu-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    }
+
+    /* 分類div圖片 */
     .menu-item img {
       width: 160px; /* 圖片寬度 */
       height: 160px; /* 圖片高度 */
@@ -52,20 +59,34 @@
       border-radius: 12px;
       margin-bottom: 15px;
     }
+
+    /* 商品名稱樣式 */
     .menu-item h3 {
       font-size: 20px;
       margin: 10px 0;
     }
+
+    /* 商品其他文字 */
     .menu-item p {
       font-size: 14px;
       color: #666;
       margin-bottom: 15px;
     }
+
+    /* 商品價格 */
     .menu-item .price {
       font-size: 30px;
       font-weight: bold;
       color: #ff6600;
     }
+
+    /* 鼠標移至分類div上 */
+    .menu-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 返回按鈕樣式 */
     .back-button {
       margin-top: 40px;
       padding: 12px 24px;
@@ -80,16 +101,44 @@
       display: inline-block;
       transition: background 0.3s;
     }
+
+    /* 頁面上顯示的購物車按鈕 */
+    .cart-button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+      margin-left: 20px;
+    }
+
+
+    /* 鼠標移至頁面上顯示的購物車按鈕 */
+    .cart-button:hover {
+      background-color: #cc5200;
+    }
+
+    /* 鼠標移至返回按鈕上 */
     .back-button:hover {
       background-color: #0056b3;
     }
-    /* 讓按鈕置中 */
+
+    /* 返回及購物車按鈕位置 */
     .button-container {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-bottom: 40px;
+      margin-top: -40px;
+      margin-bottom: 30px;
     }
+
     /*設定彈出訊息視窗樣式 */
     .modal {
       display: none;
@@ -107,13 +156,18 @@
       max-width: 90%;
     }
     
+    /* 購物車內容標題 */
     .modal h2 {
       margin-bottom: 20px;
     }
+
+    /* 確認加入購物車視窗按鈕位置 */
     .modal-buttons {
       display: flex;
       justify-content: space-between;
     }
+
+    /* 是否加入購物車視窗按鈕樣式 */
     .modal button {
       padding: 10px 20px;
       border: none;
@@ -121,14 +175,30 @@
       border-radius: 5px;
       font-size: 16px;
     }
+
+    /* 是否加入購物車視窗確認按鈕 */
     .modal .confirm {
       background-color: #28a745;
       color: white;
     }
+
+    /* 是否加入購物車視窗取消按鈕 */
     .modal .cancel {
       background-color: #dc3545;
       color: white;
     }
+
+    /* 鼠標移至是否加入購物車的是 */
+    .modal-buttons .confirm:hover {
+      background-color: #218838;
+    }
+
+    /* 鼠標移至是否加入購物車的否 */
+    .modal-buttons .cancel:hover {
+      background-color: #c82333;
+    }
+
+    /* 開啟視窗時將背景改成半透明 */
     .overlay {
       display: none;
       position: fixed;
@@ -139,25 +209,9 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 999;
     }
-    .cart-button {
-      margin-top: 40px;
-      padding: 12px 24px;
-      font-size: 18px;
-      background-color: #ff6600;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.3s;
-      margin-left: 20px;
-    }
+
     
-    .cart-button:hover {
-      background-color: #cc5200;
-    }
+    /* 購物車視窗 */
     #cart-modal {
       display: none;
       position: fixed;
@@ -174,11 +228,13 @@
       max-width: 90%;
     }
     
+    /* 加入購物車裡的商品內容文字排版 */
     #cart-items-list {
       text-align: left;
       margin-bottom: 15px;
     }
     
+    /* 關閉購物車按鈕樣式 */
     .close-cart {
       padding: 10px 20px;
       background-color: red;
@@ -188,10 +244,12 @@
       cursor: pointer;
       font-size: 16px;
     }
-    
+    /* 鼠標移至關閉購物車按鈕 */
     .close-cart:hover {
       background-color: darkred;
     }
+
+    /* 送出清單按鈕樣式 */
     .submit-order {
       padding: 10px 20px;
       background-color: #28a745;
@@ -203,9 +261,12 @@
       margin-top: 10px;
     }
     
+    /* 鼠標移至送出清單按鈕 */
     .submit-order:hover {
       background-color: #218838;
     }
+
+    /* 輸入email視窗 */
     #email-modal {
       display: none;
       position: fixed;
@@ -222,6 +283,7 @@
       max-width: 90%;
     }
     
+    /* 使用者輸入email樣式 */
     #user-email {
       width: 90%;
       padding: 10px;
@@ -231,41 +293,20 @@
       font-size: 16px;
     }
     
+    /* 是否加入購物車視窗按鈕群組，以方便設定位置 */
     .modal-buttons {
       display: flex;
       justify-content: space-between;
       margin-top: 15px;
     }
     
-    .modal-buttons button {
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    
-    .modal-buttons .confirm {
-      background-color: #28a745;
-      color: white;
-    }
-    
-    .modal-buttons .cancel {
-      background-color: #dc3545;
-      color: white;
-    }
-    
-    .modal-buttons .confirm:hover {
-      background-color: #218838;
-    }
-    
-    .modal-buttons .cancel:hover {
-      background-color: #c82333;
-    }
+    /* 清除訂單按鈕樣式 */
     .clear-cart {
       background-color: #c82333;
       color: white;
     }
+
+    /* 鼠標移至清除訂單按鈕 */
     .clear-cart:hover{
       background-color: #c8237e;
       color: white;
@@ -279,6 +320,7 @@
 </script>
 
 <body>
+  
   <!-- 頂部標題 -->
   <div class="header">點心Menu</div>
 
