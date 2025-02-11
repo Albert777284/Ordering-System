@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>甜點類菜單</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden; /* 隱藏水平滾動條 */
+    }
+    .header {
+      background-color: #ffcc00;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      color: #000000;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 每行顯示3個div */
+      gap: 20px; /* 每個div之間的間距 */
+      padding: 20px;
+      width: 90%;
+      max-width: 1200px;
+    }
+    .menu-item {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .menu-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+    .menu-item img {
+      width: 160px; /* 圖片寬度 */
+      height: 160px; /* 圖片高度 */
+      object-fit: cover; /* 保持圖片比例 */
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .menu-item h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .menu-item p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .menu-item .price {
+      font-size: 30px;
+      font-weight: bold;
+      color: #ff6600;
+    }
+    .back-button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+    /* 讓按鈕置中 */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    /*設定彈出訊息視窗樣式 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      z-index: 1000;
+      width: 420px;
+      max-width: 90%;
+    }
+    
+    .modal h2 {
+      margin-bottom: 20px;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .modal button {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .modal .confirm {
+      background-color: #28a745;
+      color: white;
+    }
+    .modal .cancel {
+      background-color: #dc3545;
+      color: white;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .cart-button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+      margin-left: 20px;
+    }
+    
+    .cart-button:hover {
+      background-color: #cc5200;
+    }
+    #cart-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      z-index: 1000;
+      width: 400px;
+      max-width: 90%;
+    }
+    
+    #cart-items-list {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+    
+    .close-cart {
+      padding: 10px 20px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    .close-cart:hover {
+      background-color: darkred;
+    }
+    .submit-order {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    
+    .submit-order:hover {
+      background-color: #218838;
+    }
+    #email-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      z-index: 1000;
+      width: 400px;
+      max-width: 90%;
+    }
+    
+    #user-email {
+      width: 90%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    
+    .modal-buttons button {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .modal-buttons .confirm {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .modal-buttons .cancel {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .modal-buttons .confirm:hover {
+      background-color: #218838;
+    }
+    
+    .modal-buttons .cancel:hover {
+      background-color: #c82333;
+    }
+    .clear-cart {
+      background-color: #c82333;
+      color: white;
+    }
+    .clear-cart:hover{
+      background-color: #c8237e;
+      color: white;
+    }
+  </style>
+</head>
+<script src="../JS/shopping_cart.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("O4qDi_2lhtRboHGHP");  //Public Key
+</script>
+
+<body>
+  <!-- 頂部標題 -->
+  <div class="header">甜點類Menu</div>
+
+  <!-- 菜單內容 -->
+  <div class="menu-container">
+    <!-- 菜單項目 -->
+    <div class="menu-item">
+      <img src="img/dessert/Tiramisu.jpg" alt="提拉米蘇">
+        <h3>提拉米蘇</h3>
+        <p>濃郁咖啡與滑順馬斯卡彭交融，口感細膩香醇！</p>
+      <p class="price"><span class="currency">$</span><span class="amount">60</span></p>
+    </div>
+    <div class="menu-item">
+      <img src="img/dessert/cheesecake.png" alt="輕乳酪蛋糕">
+        <h3>輕乳酪蛋糕</h3>
+        <p>口感輕盈細緻，乳香濃郁不膩口，綿密滑順！</p>
+      <p class="price"><span class="currency">$</span><span class="amount">55</span></p>
+    </div>
+    <div class="menu-item">
+      <img src="img/dessert/lemon_pie.jpg" alt="檸檬派">
+        <h3>檸檬派</h3>
+        <p>酸甜清爽，檸檬香氣濃郁，搭配酥脆派皮，口感豐富！</p>
+      <p class="price"><span class="currency">$</span><span class="amount">45</span></p>
+    </div>
+    <div class="menu-item">
+      <img src="img/dessert/Kelilu.jpg" alt="可麗露">
+        <h3>可麗露</h3>
+        <p>外層焦脆，內裡Q彈濕潤，濃郁香草與焦糖風味！</p>
+      <p class="price"><span class="currency">$</span><span class="amount">40</span></p>
+    </div>
+    <div class="menu-item">
+      <img src="img/dessert/muffin.jpg" alt="鬆餅">
+        <h3>鬆餅</h3>
+        <p>外酥內軟，口感蓬鬆香甜，搭配蜂蜜或果醬更美味！</p>
+      <p class="price"><span class="currency">$</span><span class="amount">40</span></p>
+    </div>
+    <div class="menu-item">
+      <img src="img/dessert/Chocolate_Brownie.jpg" alt="巧克力布朗尼">
+        <h3>巧克力布朗尼</h3>
+        <p>濃郁巧克力風味，口感濕潤紮實，甜而不膩！</p>
+      <p class="price"><span class="currency">$</span><span class="amount">40</span></p>
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="../index.html" class="back-button">返回首頁</a>
+    <button class="cart-button" onclick="openCart()">🛒 購物車</button>
+  </div>
+  <div class="overlay" id="overlay"></div>
+  <div class="modal" id="modal">
+    <h2 id="modal-title">是否加入購物車？</h2>
+    <div class="modal-buttons">
+      <button class="confirm" onclick="addToCartConfirmed()">確定</button>
+      <button class="cancel" onclick="closeModal()">取消</button>
+    </div>
+  </div>
+  <div class="overlay" id="cart-overlay"></div>
+  <div class="modal" id="cart-modal">
+    <h2>🛒 購物車內容</h2>
+    <div id="cart-items-list"></div>
+    <p class="total">總金額: $<span id="cart-total">0</span></p>
+
+    <button class="submit-order" onclick="openEmailPrompt()">送出訂單</button>
+    <button class="clear-cart" onclick="clearCart()">清空訂單</button>
+    <button class="close-cart" onclick="closeCart()">關閉</button>
+  </div>
+  <div class="overlay" id="email-overlay"></div>
+  <div class="modal" id="email-modal">
+    <h2>請輸入您的電子郵件</h2>
+    <input type="email" id="user-email" placeholder="example@example.com" required>
+    <div class="modal-buttons">
+      <button class="confirm" onclick="submitEmail()">送出</button>
+      <button class="cancel" onclick="closeEmailModal()">取消</button>
+    </div>
+  </div>
+</body>
+</html>
