@@ -20,14 +20,25 @@
 
      /* 筆電上變成 2 欄 */
     @media (max-width: 1024px) {
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      
       .category-container {
+        min-height: 100vh;
         grid-template-columns: repeat(2, 1fr);
       }
     }
     
     /* 手機上變成 1 欄 */
     @media (max-width: 768px) {
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
       .category-container {
+        min-height: 100vh;
         grid-template-columns: repeat(1, 1fr);
       }
     }
