@@ -17,6 +17,21 @@
       justify-content: center;
       height: 100vh;
     }
+
+     /* 筆電上變成 2 欄 */
+    @media (max-width: 1024px) {
+      .category-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    /* 手機上變成 1 欄 */
+    @media (max-width: 768px) {
+      .category-container {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+    
     /* 標題 */
     .welcome-message {
       font-size: 40px;
@@ -27,7 +42,7 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      margin-bottom: 20px; 
+      margin-bottom: 20px;
     }
 
     /* 商品類別div排版 */
@@ -40,6 +55,7 @@
       padding: 100px 20px 20px;
       width: 90%;
       max-width: 1200px;
+      margin-top: 30px;
     }
 
     /* 商品類別div樣式 */
@@ -49,7 +65,7 @@
       box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
       padding: 30px;
       width: 200px;
-      height: 250px;
+      height: 220px;
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s, background-color 0.2s;
